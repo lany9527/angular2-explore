@@ -1,0 +1,10 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "scripts": {
+    "mock": "json-server mock.js --port 3003"
+  },
+  "dependencies": {
+    "mockjs": "^1.0.1-beta3"
+  }
+}

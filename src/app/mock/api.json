@@ -1,0 +1,7 @@
+/**
+ * Created by littlestone on 2017/1/9.
+ */
+{
+  "/news/list:id/show": "/news/list:id",
+  "/topics/:id/show": "/news/:id"
+}

@@ -1,0 +1,11 @@
+/**
+ * Created by littlestone on 2017/1/9.
+ */
+{
+  "host": "0.0.0.0",
+  "port": "3003",
+  "watch": false,
+  "delay": 500,
+  "quiet": true,
+  "routes": "./api.json"
+}
