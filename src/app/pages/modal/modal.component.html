@@ -1,0 +1,35 @@
+<button (click)="openModal('modal-1')">Open Modal 1</button>
+<button (click)="openModal('modal-2')">Open Modal 2</button>
+
+<app-modal-box id="modal-1">
+    <div class="modal">
+        <div class="modal-body">
+            <h1>温馨提示</h1>
+            <p>
+                啦啦啦啦啦
+            </p>
+            <button (click)="closeModal('modal-1');">Close</button>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</app-modal-box>
+
+<app-modal-box id="modal-2">
+    <div class="modal">
+        <div class="modal-body">
+            <h1>注册!</h1>
+            <form>
+                <div class="form-group">
+                    <label class="form-control-label" for="formGroupExampleInput">Example label</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="formGroupExampleInput2">Another label</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                </div>
+            </form>
+            <button (click)="closeModal('modal-2');">Close</button>
+        </div>
+    </div>
+    <div class="modal-background"></div>
+</app-modal-box>

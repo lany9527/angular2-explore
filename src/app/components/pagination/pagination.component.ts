@@ -12,7 +12,8 @@ export class PaginationComponent implements OnInit {
   @Output() onPagination = new EventEmitter<any>();
   constructor() { }
   pager: any = {};
-
+  allPages: number = 0;
+  currentPage: number = 0;
   ngOnInit() {
     console.log(this.totalItems);
     this.setPage(1);
@@ -20,6 +21,7 @@ export class PaginationComponent implements OnInit {
   setPage(page: number) {
     this.onPagination.emit(page);
     console.log("set page", page);
+    this.currentPage = page;
     if (page < 1 || page > this.pager.totalPages) {
       return;
     }
@@ -34,7 +36,7 @@ export class PaginationComponent implements OnInit {
   getPager(totalItems: number, currentPage: number = 1, pageSize: number = 10) {
     // 计算总页数
     let totalPages = Math.ceil(totalItems / pageSize);
-
+    this.allPages = totalPages;
     let startPage: number, endPage: number;
     if (totalPages <= 10) {
       // 少于10页全部显示页码

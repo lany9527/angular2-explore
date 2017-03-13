@@ -1,5 +1,2 @@
-<ul class="list-group">
-    <li *ngFor="let item of allItems" class="list-group-item">{{item.title}}</li>
-</ul>
-
-<app-pagination [totalItems]=265 (onPagination)="togglePage($event)"></app-pagination>
+<app-header></app-header>
+<router-outlet></router-outlet>
