@@ -1,20 +1,33 @@
 <div class="container sign-box">
-    <form name="from" (ngSubmit)="signIn()" novalidate>
-        <div class="form-group row has-success">
-            <label for="inputHorizontalSuccess" class="col-sm-2 col-form-label">Username</label>
-            <div class="col-sm-10">
-                <input type="text" name="username" class="form-control form-control-success" id="inputHorizontalSuccess" placeholder="" [(ngModel)]="user.username">
-                <div class="form-control-feedback">Success! You've done it.</div>
+    <app-alert></app-alert>
+    
+    <form name="from" (ngSubmit)="f.form.valid && signIn()"  #f="ngForm" novalidate>
+
+        <div class="row">
+            <div class="col-sm-2 col-form-label">
+                <label for="username">userName</label>
+            </div>
+            <div class="col-sm-10" [ngClass]="{'has-warning': f.submitted && !username.valid, 'has-success': f.submitted && username.valid}">
+                <input type="text" name="username" class="form-control form-control-success" id="username" placeholder="" [(ngModel)]="user.username" #username="ngModel" required >
+                <div *ngIf="f.submitted && !username.valid" class="form-control-feedback">username is required</div>
             </div>
         </div>
-        <div class="form-group row has-warning">
-            <label for="inputHorizontalWarning" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-10">
-                <input type="password" name="password" class="form-control form-control-warning" id="inputHorizontalWarning" placeholder="" [(ngModel)]="user.password">
-                <div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
-                <br>
-                <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+
+        <div class="row">
+            <div class="col-sm-2 col-form-label">
+                <label for="password">password</label>
+            </div>
+            <div class="col-sm-10" [ngClass]="{'has-warning': f.submitted && !password.valid, 'has-success': f.submitted && password.valid}">
+                <input type="text" name="password" class="form-control form-control-success" id="password" placeholder="" [(ngModel)]="user.password" #password="ngModel" required >
+                <div *ngIf="f.submitted && !password.valid" class="form-control-feedback">password is required</div>
             </div>
         </div>
+
+         <div class="form-group row has-warning">
+             <div class="col-sm-2"></div>
+             <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+             </div>
+         </div>
     </form>
 </div>

@@ -1,31 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+
+
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { AlertService } from '../../services/alert/alert.service';
+
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  /*
-  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2VuYW4iLCJpYXQiOjE0ODkzOTYxMjcsImV4cCI6MTQ4OTQwNjIwN30.fDPySCeQTcAHjNcSP_HbekbS3jXoHWjQz6HG3Ms3olk
-  */
   user: any = {};
-  private signIn_url = 'localhost:8080/api/user/accesstoken'
+  returnUrl: string;
   constructor(
-    public http: Http
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService
   ) { }
-  signIn(){
+  signIn() {
     console.log("sign in", this.user);
-    return this.http.post(this.signIn_url, {
-      username: this.user.username,
-      password: this.user.password
-    }).map((res: Response)=>{
-      console.log("res==>", res);
-    })
+    this.authenticationService.login(this.user.username, this.user.password)
+      .subscribe(
+      data => {
+        console.log("登陆成功：", data);
+        this.alertService.success("login success");
+        this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        console.log("登陆失败：", error);
+        this.alertService.error(error._body);
+      });
   }
   ngOnInit() {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    console.log(this.returnUrl);
   }
 
 }

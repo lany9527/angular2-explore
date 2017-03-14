@@ -4,12 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+
+// services
+import { PagerService } from './services/pager/pager.service';
+import { ModalService } from './services/modal/modal.service';
+import { UserService } from './services/user/user.service';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { AlertService } from './services/alert/alert.service';
+
+// component
 import { AppComponent } from './app.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
-import {PagerService} from './services/pager/pager.service';
-import {ModalService} from './services/modal/modal.service';
 import { HeaderComponent } from './components/header/header.component'
-import {appRoutes} from './app.routes';
+import { appRoutes } from './app.routes';
 import { HomeComponent } from './pages/home/home.component';
 import { DemoComponent } from './pages/demo/demo.component';
 import { PagerComponent } from './pages/pager/pager.component';
@@ -18,6 +25,7 @@ import { ModalBoxComponent } from './components/modal-box/modal-box.component';
 import { ModalBoxDirective } from './directive/modal-box.directive';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +39,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     ModalBoxComponent,
     ModalBoxDirective,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +51,10 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
   ],
   providers: [
     PagerService,
-    ModalService
+    ModalService,
+    UserService,
+    AuthenticationService,
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

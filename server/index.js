@@ -1,25 +1,23 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser'); // 解析body字段模块
-const morgan = require('morgan'); // 命令行log显示
-const mongoose = require('mongoose');
-const passport = require('passport'); // 用户认证模块passport
-const Strategy = require('passport-http-bearer').Strategy; // token验证模块
-const routes = require('./routes');
-const config = require('./config');
+require('rootpath')();
+var express = require('express');
+var app = express();
+var cors = require('cors');
+var bodyParser = require('body-parser');
+var expressJwt = require('express-jwt');
+var config = require('config.json');
 
-let port = process.env.PORT || 8080;
-
-app.use(passport.initialize()); // 初始化passport模块
-app.use(morgan('dev')); // 命令行中显示程序运行日志,便于bug调试
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); // 调用bodyParser模块以便程序正确解析body传入值
+app.use(bodyParser.json());
 
-routes(app); // 路由引入
+// use JWT auth to secure the api
+app.use(expressJwt({ secret: config.secret }).unless({ path: ['/users/authenticate', '/users/register'] }));
 
-mongoose.Promise = global.Promise;
-mongoose.connect(config.database); // 连接数据库
+// routes
+app.use('/users', require('./controllers/users.controller'));
 
-app.listen(port, () => {
-    console.log('listening on port : ' + port);
-})
+// start server
+var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
+var server = app.listen(port, function() {
+    console.log('Server listening on port ' + port);
+});
